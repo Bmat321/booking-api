@@ -37,9 +37,10 @@ app.use("/api/auth", authRoute);
 app.use("/api/users", usersRoute);
 app.use("/api/rooms", roomsRoute);
 app.use("/api/hotels", hotelsRoute);
-app.get("/", (req, res) => {
-  res.setHeader("Access-Control-Allow-Credentials", true);
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Credentials", true);
   console.log("App is running")
+  next()
 });
 
 app.use((err, req, res, next) => {
