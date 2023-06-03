@@ -37,15 +37,11 @@ app.use("/api/auth", authRoute);
 app.use("/api/users", usersRoute);
 app.use("/api/rooms", roomsRoute);
 app.use("/api/hotels", hotelsRoute);
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Credentials", true);
-  next();
+app.get("/", (req, res) => {
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  console.log("App is running")
 });
-app.use(express.static(path.join(__dirname, "/client/build")));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "/client/build", "index.html"));
-});
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
   const errorMessage = err.message || "Something went wrong!";
